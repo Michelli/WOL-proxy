@@ -1,9 +1,10 @@
-FROM python:3-slim-buster
+FROM python:alpine3.19
 
 WORKDIR /usr/src/app
 
-RUN pip install paho-mqtt wakeonlan
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-ADD WOL-proxy.py .
+COPY WOL-proxy.py .
 
 ENTRYPOINT ["python", "./WOL-proxy.py"]
